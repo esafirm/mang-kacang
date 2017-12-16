@@ -2,7 +2,7 @@ import * as line from '@line/bot-sdk';
 import * as express from 'express';
 import axios from 'axios';
 import { setTimeout, clearTimeout } from 'timers';
-import { Message, MessageEvent, EventSource } from '@line/bot-sdk';
+import { Message, MessageEvent, EventSource, Group } from '@line/bot-sdk';
 
 const config = {
   channelAccessToken:
@@ -43,7 +43,7 @@ function handleEvent(event: MessageEvent) {
   }
 
   if (type === 'group') {
-    const groupId: string = event.source.groupId;
+    const groupId: string = (event.source as Group).groupId;
     const currentTask = taskMap.get(groupId);
     if (currentTask) {
       clearTimeout(currentTask);
