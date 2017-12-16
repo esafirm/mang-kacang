@@ -1,5 +1,6 @@
 import * as line from '@line/bot-sdk';
 import * as express from 'express';
+import axios from 'axios';
 import { setTimeout, clearTimeout } from 'timers';
 
 const config = {
@@ -8,7 +9,7 @@ const config = {
   channelSecret: 'ceaed7a0d0256e790435f80d000ef0c0'
 };
 
-const WAITING_TIME = 10 * 1000;
+const WAITING_TIME = 15 * 1000;
 
 const app = express();
 const client = new line.Client(config);
@@ -36,16 +37,36 @@ function handleEvent(event: any) {
       clearTimeout(currentTask);
     }
 
-    taskMap.set(
-      groupId,
-      setTimeout(() => {
-        client.replyMessage(event.replyToken, {
-          type: 'text',
-          text: 'kacang enak ~ lima ribuan ~'
-        });
-      }, WAITING_TIME)
-    );
+    taskMap.set(groupId, setTimeout(() => randomAction(event), WAITING_TIME));
   }
+}
+
+function randomAction(event: any) {
+  const action = randomInt(1);
+
+  console.log('randomize action:', action);
+
+  switch (action) {
+    case 0:
+      client.replyMessage(event.replyToken, {
+        type: 'text',
+        text: 'kacang enak ~ lima ribuan ~'
+      });
+      break;
+    case 1:
+      const imageUrl = 'https://source.unsplash.com/random/240*240?nut';
+      client
+        .replyMessage(event.replyToken, {
+          type: 'image',
+          originalContentUrl: imageUrl,
+          previewImageUrl: imageUrl
+        })
+        .catch(error => console.log('LINE ERROR', error));
+  }
+}
+
+function randomInt(high: number) {
+  return Math.round(Math.random() * high);
 }
 
 app.listen(3000);
