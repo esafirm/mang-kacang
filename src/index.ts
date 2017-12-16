@@ -2,6 +2,7 @@ import * as line from '@line/bot-sdk';
 import * as express from 'express';
 import axios from 'axios';
 import { setTimeout, clearTimeout } from 'timers';
+import { Message, MessageEvent, EventSource } from '@line/bot-sdk';
 
 const config = {
   channelAccessToken:
@@ -23,15 +24,26 @@ app.post('/webhook', line.middleware(config), (req, res) => {
   );
 });
 
-function handleEvent(event: any) {
+function handleEvent(event: MessageEvent) {
   if (event.type !== 'message' || event.message.type !== 'text') {
     return Promise.resolve(null);
   }
 
-  const type: String = event.source.type;
+  const type: string = event.source.type;
+  const textMessage: string = event.message.text;
+
+  if (textMessage.includes('abay')) {
+    const abayImage =
+      'https://scontent-sit4-1.xx.fbcdn.net/v/t1.0-9/188503_1601344285846_4341498_n.jpg?oh=522807be30b698fee1f45d3349bd228c&oe=5AD05C5D';
+    return reply(event, {
+      type: 'image',
+      originalContentUrl: abayImage,
+      previewImageUrl: abayImage
+    });
+  }
 
   if (type === 'group') {
-    const groupId: String = event.source.groupId;
+    const groupId: string = event.source.groupId;
     const currentTask = taskMap.get(groupId);
     if (currentTask) {
       clearTimeout(currentTask);
@@ -67,6 +79,12 @@ function randomAction(event: any) {
 
 function randomInt(high: number) {
   return Math.round(Math.random() * high);
+}
+
+function reply(event: MessageEvent, payload: any) {
+  return client
+    .replyMessage(event.replyToken, payload)
+    .catch(error => console.log('LINE ERROR', error));
 }
 
 const port = process.env.PORT || 5000;
