@@ -14,9 +14,6 @@
     "@line/bot-sdk": "^5.2.0",
     "axios": "^0.17.1",
     "express": "^4.16.2",
-    "kue": "^0.11.6"
-  },
-  "devDependencies": {
     "typescript": "^2.6.2"
   }
 }
