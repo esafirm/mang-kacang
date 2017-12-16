@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && node dist/index.js",
+    "start": "./node_modules/typescript/bin/tsc && node dist/index.js",
     "dev": "tsc --watch & nodemon dist/index.js"
   },
   "author": "",
@@ -15,5 +15,8 @@
     "axios": "^0.17.1",
     "express": "^4.16.2",
     "kue": "^0.11.6"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.2"
   }
 }
