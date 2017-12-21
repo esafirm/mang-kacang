@@ -2,7 +2,7 @@ import Client from '@line/bot-sdk/dist/client';
 import { MessageEvent, TextMessage, Group } from '@line/bot-sdk';
 import { reply } from './utils';
 
-const WAITING_TIME = 15 * 1000;
+const WAITING_TIME = 60 * 1000;
 const taskMap = new Map();
 
 export function willHandle(event: MessageEvent) {
