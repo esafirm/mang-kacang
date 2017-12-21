@@ -9,7 +9,7 @@ import {
 const testData: Array<TextEventMessage> = [
   textMessage('abay mau makan'),
   textMessage('Abay mau makan'),
-  textMessage('noabay'),
+  textMessage('noabay')
 ];
 
 function textMessage(message: string): TextEventMessage {
