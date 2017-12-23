@@ -11,7 +11,14 @@ export function handleEvent(client: Client, event: MessageEvent) {
     return Promise.resolve(null);
   }
 
-  return handlers
-    .filter(handler => handler.willHandle(event))
-    .map(handler => handler.handleEvent(client, event));
+  for (let index = 0; index < handlers.length; index++) {
+    const handler = handlers[index];
+    const condition: HandlerCondition = handler.getCondition(event);
+    if (condition.willHandle) {
+      handler.handleEvent(client, event);
+    }
+    if (!condition.continueProcess) {
+      break;
+    }
+  }
 }

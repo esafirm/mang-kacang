@@ -2,11 +2,14 @@ import Client from '@line/bot-sdk/dist/client';
 import { MessageEvent, TextMessage, Group } from '@line/bot-sdk';
 import { push } from './utils';
 
-const WAITING_TIME = 60 * 1000;
+const WAITING_TIME = 2 * 60 * 1000;
 const taskMap = new Map();
 
-export function willHandle(event: MessageEvent) {
-  return event.source.type === 'group';
+export function getCondition(event: MessageEvent): HandlerCondition {
+  return {
+    willHandle: event.source.type === 'group',
+    continueProcess: true
+  };
 }
 
 export function handleEvent(client: Client, event: MessageEvent) {
