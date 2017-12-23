@@ -1,8 +1,8 @@
 import Client from '@line/bot-sdk/dist/client';
 import { MessageEvent } from '@line/bot-sdk';
 
-import * as abayhandler from './abayhandler';
-import * as kacanghandler from './kacanghandler';
+import * as abayhandler from './AbayHandler';
+import * as kacanghandler from './KacangHandler';
 
 const handlers = [abayhandler, kacanghandler];
 
