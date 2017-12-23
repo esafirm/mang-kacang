@@ -1,6 +1,6 @@
 import Client from '@line/bot-sdk/dist/client';
 import { MessageEvent, TextMessage, Group } from '@line/bot-sdk';
-import { reply } from './utils';
+import { push } from './utils';
 
 const WAITING_TIME = 60 * 1000;
 const taskMap = new Map();
@@ -31,14 +31,14 @@ function randomAction(client: Client, event: MessageEvent) {
 
   switch (action) {
     case 0:
-      reply(client, event, {
+      push(client, event, {
         type: 'text',
         text: 'kacang enak ~ lima ribuan ~'
       });
       break;
     case 1:
       const imageUrl = 'https://source.unsplash.com/random/240*240?nut';
-      reply(client, event, {
+      push(client, event, {
         type: 'image',
         originalContentUrl: imageUrl,
         previewImageUrl: imageUrl
