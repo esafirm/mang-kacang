@@ -1,5 +1,9 @@
 import Client from '@line/bot-sdk/dist/client';
-import { MessageEvent, Message, Group } from '@line/bot-sdk';
+import { MessageEvent, Message, Group, TextMessage } from '@line/bot-sdk';
+
+export function checkInclude(event: MessageEvent, text: string) {
+  return (event.message as TextMessage).text.toLowerCase().includes(text);
+}
 
 export function reply(client: Client, event: MessageEvent, payload: any) {
   return client
