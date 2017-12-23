@@ -1,4 +1,4 @@
-import { willHandle, handleEvent } from './abayhandler';
+import { getCondition, handleEvent } from './abayhandler';
 import {
   TextMessage,
   MessageEvent,
@@ -30,6 +30,9 @@ testData.forEach(data => {
       timestamp: 1
     };
 
-    expect(willHandle(event)).toBe(true);
+    expect(getCondition(event)).toEqual({
+      willHandle: true,
+      continueProcess: false
+    });
   });
 });

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { setTimeout, clearTimeout } from 'timers';
 import { Message, MessageEvent, EventSource, Group } from '@line/bot-sdk';
 
-import * as handler from './handlers/handlers';
+import * as handler from './handlers/Handlers';
 
 const config = {
   channelAccessToken:

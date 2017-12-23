@@ -14,13 +14,24 @@ export function handleEvent(client: Client, event: MessageEvent) {
   for (let index = 0; index < handlers.length; index++) {
     const handler = handlers[index];
     const condition: HandlerCondition = handler.getCondition(event);
+    const shouldContinue: boolean = processEvent(() =>
+      handler.handleEvent(client, event)
+    );
 
-    if (condition.willHandle) {
-      handler.handleEvent(client, event);
-    }
-    if (condition.willHandle && !condition.continueProcess) {
-      console.log('Breaking handling searching process');
+    if (!shouldContinue) {
+      console.log('Breaking event handler @ ', handler);
       break;
     }
   }
+}
+
+export function processEvent(
+  condition: HandlerCondition,
+  action: any
+): boolean {
+  if (condition.willHandle) {
+    action();
+    return condition.continueProcess;
+  }
+  return true;
 }
