@@ -19,6 +19,7 @@ export function handleEvent(client: Client, event: MessageEvent) {
       handler.handleEvent(client, event);
     }
     if (condition.willHandle && !condition.continueProcess) {
+      console.log('Breaking handling searching process');
       break;
     }
   }
