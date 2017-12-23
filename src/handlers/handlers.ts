@@ -14,10 +14,11 @@ export function handleEvent(client: Client, event: MessageEvent) {
   for (let index = 0; index < handlers.length; index++) {
     const handler = handlers[index];
     const condition: HandlerCondition = handler.getCondition(event);
+
     if (condition.willHandle) {
       handler.handleEvent(client, event);
     }
-    if (!condition.continueProcess) {
+    if (condition.willHandle && !condition.continueProcess) {
       break;
     }
   }

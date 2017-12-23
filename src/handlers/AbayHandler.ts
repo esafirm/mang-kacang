@@ -13,7 +13,7 @@ export function getCondition(event: MessageEvent): HandlerCondition {
 }
 
 export function handleEvent(client: Client, event: MessageEvent): Promise<any> {
-  console.log('-> Event handled by AbayHandler')
+  console.log('--> Event handled by AbayHandler')
 
   const abayImage = _.shuffle([
     'https://scontent-sit4-1.xx.fbcdn.net/v/t1.0-9/188503_1601344285846_4341498_n.jpg?oh=522807be30b698fee1f45d3349bd228c&oe=5AD05C5D',

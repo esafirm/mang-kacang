@@ -13,7 +13,7 @@ export function getCondition(event: MessageEvent): HandlerCondition {
 }
 
 export function handleEvent(client: Client, event: MessageEvent) {
-  console.log('-> Event handled by KacangHandler');
+  console.log('--> Event handled by KacangHandler');
 
   const textMessage: string = (event.message as TextMessage).text;
   const groupId: string = (event.source as Group).groupId;
