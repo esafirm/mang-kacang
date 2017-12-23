@@ -21,14 +21,18 @@ export function handleEvent(client: Client, event: MessageEvent): Promise<any> {
 }
 
 export function getAnswer(event: MessageEvent) {
+  const abay = checkInclude(event, 'abay');
   const isHomo = checkInclude(event, 'homo');
   const isTidak = checkInclude(event, 'tidak');
 
-  if (isHomo && !isTidak) {
-    return 'Ya';
+  if (abay) {
+    if (isHomo && !isTidak) {
+      return 'Ya';
+    }
+    if (isHomo && isTidak) {
+      return 'Tidak';
+    }
   }
-  if (isHomo && isTidak) {
-    return 'Tidak';
-  }
+
   return _.shuffle(['Ya', 'Tidak'])[0];
 }
