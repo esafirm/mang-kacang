@@ -4,11 +4,9 @@ import { MessageEvent, TextMessage } from '@line/bot-sdk';
 import { reply, checkInclude } from './utils';
 
 export function getCondition(event: MessageEvent): HandlerCondition {
-  const includeAbay = checkInclude(event, 'abay');
   const includeApakah = checkInclude(event, 'apakah');
-
   return {
-    willHandle: includeAbay && includeApakah,
+    willHandle: includeApakah,
     continueProcess: false
   };
 }
